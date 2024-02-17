@@ -1,6 +1,5 @@
 package ru.beda.java.lessons;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+
 
 public class Triangle {
     double sideA;
@@ -11,6 +10,13 @@ public class Triangle {
         this.sideA = a;
         this.sideB = b;
         this.sideC = c;
+        if (this.sideA < 0 || this.sideB < 0 || this.sideC < 0) {
+            throw new IllegalArgumentException("Стороны треугольника не могут иметь отрицательные значения");
+        }
+        if (!(this.sideA + this.sideB > this.sideC && this.sideB + this.sideC > this.sideA
+                && this.sideA + this.sideC > this.sideB)) {
+            throw new IllegalArgumentException("В треугольнике 1 из сторон не может быть больше суммы 2 других сторон");
+        }
     }
 
     public static void main(String[] args) {

@@ -10,11 +10,63 @@ public class TriangleTests {
         Triangle result1 = new Triangle(5.0, 5.0, 5.0);
         Assertions.assertEquals(15, result1.getPerimeterTriangle());
     }
+
     @Test
     void canCalculateGeron() {
         Triangle result = new Triangle(3.0, 4.0, 5.0);
         Assertions.assertEquals(6, result.getGeronFormula());
         Triangle result1 = new Triangle(5.0, 5.0, 5.0);
         Assertions.assertEquals(10, result1.getGeronFormula());
+    }
+
+    @Test
+    void cannotCreateTriangleWithNegativeSideA() {
+        try {
+            Triangle res1 = new Triangle(-3.0, 4.0, 5.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException ex) {
+        }
+    }
+
+    @Test
+    void cannotCreateTriangleWithNegativeSideB() {
+        try {
+            Triangle res2 = new Triangle(3.0, -4.0, 5.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException ex) {
+        }
+    }
+
+    @Test
+    void cannotCreateTriangleWithNegativeSideC() {
+        try {
+            Triangle res2 = new Triangle(3.0, 4.0, -5.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException ex) {
+        }
+    }
+    @Test
+    void checkTriangleInequalitySideA() {
+        try {
+            Triangle res1 = new Triangle(10.0, 4.0, 5.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException ex) {
+        }
+    }
+    @Test
+    void checkTriangleInequalitySideB() {
+        try {
+            Triangle res1 = new Triangle(3.0, 10.0, 5.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException ex) {
+        }
+    }
+    @Test
+    void checkTriangleInequalitySideC() {
+        try {
+            Triangle res1 = new Triangle(3.0, 4.0, 10.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException ex) {
+        }
     }
 }
