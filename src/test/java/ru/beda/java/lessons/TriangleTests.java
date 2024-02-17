@@ -69,4 +69,10 @@ public class TriangleTests {
         } catch (IllegalArgumentException ex) {
         }
     }
+    @Test
+    void checkEqualsTriangle() {
+        Triangle tr1 = new Triangle(3.0, 4.0, 5.0);
+        Triangle tr2 = new Triangle(4.0, 3.0, 5.0);
+        Assertions.assertEquals(tr1, tr2);
+    }
 }
