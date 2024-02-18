@@ -11,7 +11,7 @@ public class CreateGroupTest {
 
     private WebDriver driver;
     @BeforeEach
-    public void setUp() throws InterruptedException {
+    public void setUp() {
         driver = new ChromeDriver();
         driver.get("http://localhost/addressbook/");
         driver.manage().window().maximize();
