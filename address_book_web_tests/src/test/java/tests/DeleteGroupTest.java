@@ -7,11 +7,11 @@ public class DeleteGroupTest extends TestBase {
 
     @Test
     public void deleteGroupTest() {
-        app.clickLinkGroup();
-        if (app.isGroupPresent()) {
-            app.createGroup(new GroupData("Name1", "TXT", "comment"));
+        app.groups().clickLinkGroup();
+        if (app.groups().isGroupPresent()) {
+            app.groups().createGroup(new GroupData("Name1", "TXT", "comment"));
         }
-        app.deleteGroup();
+        app.groups().deleteGroup();
     }
 }
 
