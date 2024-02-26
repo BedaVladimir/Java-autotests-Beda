@@ -1,15 +1,15 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+package manager;
+
+import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class TestBase {
-    protected WebDriver driver;
+public class ApplicationManager {
+    public static WebDriver driver;
 
-    @BeforeEach
-    public void setUp() {
+    public void init() {
         driver = new ChromeDriver();
         driver.get("http://localhost/addressbook/");
         driver.manage().window().maximize();
@@ -18,13 +18,7 @@ public class TestBase {
         driver.findElement(By.xpath("//input[@type='submit']")).click();
     }
 
-    @AfterEach
-    public void tearDown() {
-        driver.findElement(By.xpath("//a[@onclick='document.logout.submit();']")).click();
-        driver.quit();
-    }
-
-    protected boolean isElementPresent(By locator) {
+    public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
             return true;
@@ -33,26 +27,26 @@ public class TestBase {
         }
     }
 
-    protected void createGroup(String name, String header, String footer) {
+    public void createGroup(GroupData group) {
         driver.findElement(By.xpath("//a[@href='group.php']")).click();
         driver.findElement(By.xpath("//input[@name='new'][1]")).click();
-        driver.findElement(By.xpath("//input[@name='group_name']")).sendKeys(name);
-        driver.findElement(By.xpath("//textarea[@name='group_header']")).sendKeys(header);
-        driver.findElement(By.xpath("//textarea[@name='group_footer']")).sendKeys(footer);
+        driver.findElement(By.xpath("//input[@name='group_name']")).sendKeys(group.name());
+        driver.findElement(By.xpath("//textarea[@name='group_header']")).sendKeys(group.header());
+        driver.findElement(By.xpath("//textarea[@name='group_footer']")).sendKeys(group.footer());
         driver.findElement(By.xpath("//input[@name='submit']")).click();
         driver.findElement(By.xpath("//i/a[@href='group.php']")).click();
     }
 
-    protected void deleteGroup() {
+    public void deleteGroup() {
         driver.findElement(By.xpath("//input[@type='checkbox']")).click();
         driver.findElement(By.xpath("//input[@name='delete'][1]")).click();
     }
 
-    protected boolean isGroupPresent() {
+    public boolean isGroupPresent() {
         return !isElementPresent(By.xpath("//input[@type='checkbox']"));
     }
 
-    protected void clickLinkGroup() {
+    public void clickLinkGroup() {
         driver.findElement(By.xpath("//a[@href='group.php']")).click();
     }
 }
