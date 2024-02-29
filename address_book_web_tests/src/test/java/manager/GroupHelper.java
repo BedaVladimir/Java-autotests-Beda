@@ -2,7 +2,6 @@ package manager;
 
 import model.GroupData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 
 public class GroupHelper {
     private final ApplicationManager manager;
@@ -13,15 +12,6 @@ public class GroupHelper {
 
     public void clickLinkGroup() {
         manager.driver.findElement(By.xpath("//a[@href='group.php']")).click();
-    }
-
-    public boolean isElementPresent(By locator) {
-        try {
-            manager.driver.findElement(locator);
-            return true;
-        } catch (NoSuchElementException ex) {
-            return false;
-        }
     }
 
     public void createGroup(GroupData group) {
@@ -40,6 +30,6 @@ public class GroupHelper {
     }
 
     public boolean isGroupPresent() {
-        return !isElementPresent(By.xpath("//input[@type='checkbox']"));
+        return !manager.isElementPresent(By.xpath("//input[@type='checkbox']"));
     }
 }
