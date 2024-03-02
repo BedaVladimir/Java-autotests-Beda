@@ -16,4 +16,14 @@ public class DeleteContactTest extends TestBase{
         int countContactAft = app.contact().getCountContact();
         Assertions.assertEquals(countContactBef - 1, countContactAft);
     }
+    @Test
+    public void deleteAllContactTest() {
+        if (app.contact().getCountContact() == 0) {
+            app.contact().clickContactLink();
+            app.contact().createContact(new ContactData().withFirstName("Ivan").withLastName("Ivanov")
+                    .withAddress("Lenin Street"));
+        }
+        app.contact().deleteAllContacts();
+        Assertions.assertEquals(0, app.contact().getCountContact());
+    }
 }

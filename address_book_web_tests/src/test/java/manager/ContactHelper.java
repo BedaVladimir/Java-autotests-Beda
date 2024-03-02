@@ -26,4 +26,12 @@ public class ContactHelper {
     public int getCountContact() {
         return manager.driver.findElements(By.xpath("//tr/td/input[@type='checkbox']")).size();
     }
+    public void deleteAllContacts() {
+        var contacts = manager.driver.findElements(By.xpath("//tr/td/input[@type='checkbox']"));
+        for (var contact : contacts) {
+            contact.click();
+        }
+        manager.driver.findElement(By.xpath("//input[@value='Delete']")).click();
+        manager.driver.findElement(By.xpath("//ul//a[@href='./']")).click();
+    }
 }

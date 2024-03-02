@@ -27,6 +27,13 @@ public class GroupHelper {
         manager.driver.findElement(By.xpath("//input[@type='checkbox']")).click();
         manager.driver.findElement(By.xpath("//input[@name='delete'][1]")).click();
     }
+    public void deleteAllGroups() {
+        var groups = manager.driver.findElements(By.xpath("//input[@type='checkbox']"));
+        for (var group : groups) {
+            group.click();
+        }
+        manager.driver.findElement(By.xpath("//input[@name='delete'][1]")).click();
+    }
 
     public int getGroupCount() {
         clickLinkGroup();

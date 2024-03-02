@@ -8,7 +8,6 @@ public class DeleteGroupTest extends TestBase {
 
     @Test
     public void deleteGroupTest() {
-        app.groups().clickLinkGroup();
         if (app.groups().getGroupCount() == 0) {
             app.groups().createGroup(new GroupData("Name1", "TXT", "comment"));
         }
@@ -16,6 +15,14 @@ public class DeleteGroupTest extends TestBase {
         app.groups().deleteGroup();
         int groupCountAft = app.groups().getGroupCount();
         Assertions.assertEquals(groupCountBef - 1, groupCountAft);
+    }
+    @Test
+    public void deleteAllGroupsTest() {
+        if (app.groups().getGroupCount() == 0) {
+            app.groups().createGroup(new GroupData("Name1", "TXT", "comment"));
+        }
+        app.groups().deleteAllGroups();
+        Assertions.assertEquals(0, app.groups().getGroupCount());
     }
 }
 
