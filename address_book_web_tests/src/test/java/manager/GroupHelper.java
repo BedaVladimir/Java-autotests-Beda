@@ -15,7 +15,6 @@ public class GroupHelper {
     }
 
     public void createGroup(GroupData group) {
-        manager.driver.findElement(By.xpath("//a[@href='group.php']")).click();
         manager.driver.findElement(By.xpath("//input[@name='new'][1]")).click();
         manager.driver.findElement(By.xpath("//input[@name='group_name']")).sendKeys(group.name());
         manager.driver.findElement(By.xpath("//textarea[@name='group_header']")).sendKeys(group.header());
@@ -29,7 +28,8 @@ public class GroupHelper {
         manager.driver.findElement(By.xpath("//input[@name='delete'][1]")).click();
     }
 
-    public boolean isGroupPresent() {
-        return !manager.isElementPresent(By.xpath("//input[@type='checkbox']"));
+    public int getGroupCount() {
+        clickLinkGroup();
+        return manager.driver.findElements(By.xpath("//input[@type='checkbox']")).size();
     }
 }

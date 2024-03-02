@@ -17,11 +17,13 @@ public class ContactHelper {
         manager.driver.findElement(By.name("submit")).click();
         manager.driver.findElement(By.xpath("//ul//a[@href='./']")).click();
     }
-    public boolean isContactPresent() {
-        return !manager.isElementPresent(By.xpath("//tr/td/input[@type='checkbox']"));
-    }
+
     public void deleteContact() {
         manager.driver.findElement(By.xpath("//tr/td/input[@type='checkbox']")).click();
         manager.driver.findElement(By.xpath("//input[@value='Delete']")).click();
+        manager.driver.findElement(By.xpath("//ul//a[@href='./']")).click();
+    }
+    public int getCountContact() {
+        return manager.driver.findElements(By.xpath("//tr/td/input[@type='checkbox']")).size();
     }
 }
