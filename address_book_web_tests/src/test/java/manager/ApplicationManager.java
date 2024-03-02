@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ApplicationManager {
     protected WebDriver driver;
@@ -11,8 +12,10 @@ public class ApplicationManager {
     private GroupHelper groups;
     private ContactHelper contact;
 
-    public void init() {
-        driver = new ChromeDriver();
+    public void init(String browser) {
+        if (browser.equals("chrome")) { driver = new ChromeDriver(); }
+        else if (browser.equals("firefox")) { driver = new FirefoxDriver(); }
+        else { throw new IllegalArgumentException(String.format("Браузер - %s не используется", browser));}
         driver.get("http://localhost/addressbook/");
         driver.manage().window().maximize();
         session().login("admin", "secret");
