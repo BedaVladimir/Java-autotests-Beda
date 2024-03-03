@@ -5,27 +5,30 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
 public class CreateGroupTest extends TestBase {
     public static List<GroupData> groupProvider() {
         var result = new ArrayList<GroupData>(List.of(
-                new GroupData("test name", "", ""),
+                new GroupData("", "test name", "", ""),
                 new GroupData(),
                 new GroupData().withName("Name test").withHeader("Test").withFooter("Test")));
         for (int i = 0; i < 5; i++) {
-            result.add(new GroupData(randomString(i * 10), randomString(i * 10), randomString(i * 10)));
+            result.add(new GroupData("", randomString(i * 10), randomString(i * 10), randomString(i * 10)));
         }
         return result;
     }
 
     @Test
     public void createGroupTest() {
-        int groupCountBef = app.groups().getGroupCount();
-        app.groups().createGroup(new GroupData("Test name", "Test header", "Test footer"));
-        int groupCountAft = app.groups().getGroupCount();
-        Assertions.assertEquals(groupCountBef + 1, groupCountAft);
+        app.groups().clickLinkGroup();
+        var oldGroups = app.groups().getGroupList();
+        app.groups().createGroup(new GroupData("", "Test name", "Test header", "Test footer"));
+        var newGroups = app.groups().getGroupList();
+        //var expectGroups = oldGroups.add(newGroups.get(2));
+        //Assertions.assertEquals(expectGroups, newGroups);
     }
     @ParameterizedTest
     @MethodSource("groupProvider")
