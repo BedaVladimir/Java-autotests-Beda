@@ -51,12 +51,12 @@ public class GroupHelper {
         return groups;
     }
 
-    public void modifyGroups(GroupData group) {
+    public void modifyGroups(GroupData group, GroupData modgroup) {
         clickLinkGroup();
-        selectGroup();
+        selectGroup(group);
         initGroupMod();
         manager.driver.findElement(By.xpath("//input[@name='group_name']")).clear();
-        fillGroupForm(group);
+        fillGroupForm(modgroup);
         submitGroupMod();
         returnGroupPage();
     }
@@ -79,7 +79,7 @@ public class GroupHelper {
         manager.driver.findElement(By.xpath("//input[@name='edit'][1]")).click();
     }
 
-    private void selectGroup() {
-        manager.driver.findElement(By.xpath("//input[@type='checkbox']"));
+    private void selectGroup(GroupData group) {
+        manager.driver.findElement(By.cssSelector(String.format("input[value='%s']", group.id()))).click();
     }
 }

@@ -17,7 +17,7 @@ public class CreateContactTest extends TestBase{
                 new ContactData().withNumber("Test number"),
                 new ContactData().withEmail("Test email")));
         for (int i = 0; i < 3; i++) {
-            result.add(new ContactData(randomString(i * 10), randomString(i * 10), randomString(i * 10),
+            result.add(new ContactData("", randomString(i * 10), randomString(i * 10), randomString(i * 10),
                     randomString(i * 10), randomString(i * 10)));
         }
         return result;
