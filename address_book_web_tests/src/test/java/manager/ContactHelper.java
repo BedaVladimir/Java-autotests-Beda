@@ -40,9 +40,8 @@ public class ContactHelper {
         returnHomePage();
     }
 
-    public void modifyContact(ContactData contact, ContactData modcontact) {
-        selectContact(contact);
-        manager.driver.findElement(By.xpath("//tbody/tr[@name='entry']/td[8]/a")).click();
+    public void modifyContact(int index, ContactData modcontact) {
+        manager.driver.findElements(By.xpath("//tbody/tr[@name='entry']/td[8]/a")).get(index).click();
         manager.driver.findElement(By.name("firstname")).clear();
         fillContact(modcontact);
         manager.driver.findElement(By.xpath("//input[@name='update']")).click();

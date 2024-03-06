@@ -19,7 +19,7 @@ public class ModContactTest extends TestBase {
         var oldContactList = app.contact().getContactList();
         var index = new Random().nextInt(oldContactList.size());
         var testFirstName = new ContactData().withFirstName("Модифицированное значение");
-        app.contact().modifyContact(oldContactList.get(index), testFirstName);
+        app.contact().modifyContact(index, testFirstName);
         var newContactList = app.contact().getContactList();
         var expectedContactList = new ArrayList<>(oldContactList);
         expectedContactList.set(index, testFirstName.withId(oldContactList.get(index).id()));
