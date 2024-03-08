@@ -1,23 +1,28 @@
 package tests;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
 public class CreateGroupTest extends TestBase {
-    public static List<GroupData> groupProvider() {
-        var result = new ArrayList<GroupData>(List.of(
-                new GroupData("", "test name", "", ""),
-                new GroupData(),
-                new GroupData().withName("Name test").withHeader("Test").withFooter("Test")));
-        for (int i = 0; i < 5; i++) {
-            result.add(new GroupData("", randomString(i * 10), randomString(i * 10), randomString(i * 10)));
-        }
+    public static List<GroupData> groupProvider() throws IOException {
+        var result = new ArrayList<GroupData>();
+        //var result = new ArrayList<GroupData>(List.of(
+                //        new GroupData("", "test name", "", ""),
+                //        new GroupData(),
+        //        new GroupData().withName("Name test").withHeader("Test").withFooter("Test")));
+        ObjectMapper mapper = new ObjectMapper();
+        var value = mapper.readValue(new File("groups.json"), new TypeReference<List<GroupData>>() {});
+        result.addAll(value);
         return result;
     }
 
