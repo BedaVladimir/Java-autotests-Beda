@@ -5,6 +5,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import java.util.Properties;
 
 public class ApplicationManager {
     protected WebDriver driver;
@@ -12,13 +13,16 @@ public class ApplicationManager {
     private GroupHelper groups;
     private ContactHelper contact;
 
-    public void init(String browser) {
+    private Properties properties;
+
+    public void init(String browser, Properties properties) {
+        this.properties = properties;
         if (browser.equals("chrome")) { driver = new ChromeDriver(); }
         else if (browser.equals("firefox")) { driver = new FirefoxDriver(); }
         else { throw new IllegalArgumentException(String.format("Браузер - %s не используется", browser));}
-        driver.get("http://localhost/addressbook/");
+        driver.get(properties.getProperty("web.url"));
         driver.manage().window().maximize();
-        session().login("admin", "secret");
+        session().login(properties.getProperty("web.login"), properties.getProperty("web.password"));
     }
     public void closeDriver() {
         driver.findElement(By.xpath("//a[@onclick='document.logout.submit();']")).click();
