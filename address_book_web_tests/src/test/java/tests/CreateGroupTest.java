@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -37,9 +38,18 @@ public class CreateGroupTest extends TestBase {
     @ParameterizedTest
     @MethodSource("groupProvider")
     public void createMultipleGroups(GroupData group) {
-        int groupCountBef = app.groups().getGroupCount();
+        app.groups().clickLinkGroup();
+        var oldGroups = app.jdbc().getGroupList();
         app.groups().createGroup(group);
-        int groupCountAft = app.groups().getGroupCount();
-        Assertions.assertEquals(groupCountBef + 1, groupCountAft);
+        var newGroups = app.jdbc().getGroupList();
+        Comparator<GroupData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newGroups.sort(compareById);
+        var maxId = newGroups.get(newGroups.size() - 1).id();
+        var expectedList = new ArrayList<>(oldGroups);
+        expectedList.add(group.withId(maxId));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newGroups, expectedList);
     }
 }
